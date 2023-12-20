@@ -30,6 +30,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  drift: ^2.14.0
+  sqflite: ^2.3.0
+  postgres: ^2.6.3
 
 
   # The following adds the Cupertino Icons font to your application.
