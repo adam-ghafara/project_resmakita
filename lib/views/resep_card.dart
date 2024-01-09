@@ -32,8 +32,28 @@ class ResepCard extends StatelessWidget {
         ),
         child: Stack(children: [Align(
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 5.0),
-          child: Text(nama_masakan, style: TextStyle(fontSize: 19),overflow: TextOverflow.ellipsis,maxLines: 2, textAlign: TextAlign.center,),
+          child: Row(children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(nama_masakan, style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white)),
+                  SizedBox(height: 5),
+                  Text('Jenis Masakan: $jenis_masakan', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
+                ],
+              ),
+            ),
+            Expanded(child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                  Text('Penulis: Ahmad Fauzi', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
+            ],)),
+            Icon(Icons.favorite, color: Colors.red[400], size: 30)
+          ],),
           ),
+          alignment: Alignment.center,
         )],),
       );
     }
