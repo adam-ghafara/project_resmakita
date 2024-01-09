@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import '../connection/postgres.dart';
 
 class ResepCard extends StatelessWidget {
-  final String title;
-  final String rating;
-  final String cookingTime;
-  final String  thumbnailUrl;
+  final String nama_masakan;
+  final String jenis_masakan;
+  final String gambar_masakan;
 
-  const ResepCard({required this.title, required this.rating, required this.cookingTime, required this.thumbnailUrl});
-
+  const ResepCard({ required this.nama_masakan, required this.jenis_masakan, required this.gambar_masakan });
 
     @override 
     Widget build(BuildContext context) {
@@ -28,13 +26,13 @@ class ResepCard extends StatelessWidget {
           ],
           image: DecorationImage(
             colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.4), BlendMode.darken),
-            image: NetworkImage(thumbnailUrl),
+            image: NetworkImage(gambar_masakan),
             fit: BoxFit.cover
           )
         ),
         child: Stack(children: [Align(
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 5.0),
-          child: Text(title, style: TextStyle(fontSize: 19),overflow: TextOverflow.ellipsis,maxLines: 2, textAlign: TextAlign.center,),
+          child: Text(nama_masakan, style: TextStyle(fontSize: 19),overflow: TextOverflow.ellipsis,maxLines: 2, textAlign: TextAlign.center,),
           ),
         )],),
       );

@@ -23,10 +23,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: ResepCard(
-        title: 'Kue Marmer',
-        rating: '4,9',
-        cookingTime: '2 Jam',
-        thumbnailUrl: "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/17/Resep-Bolu-Marmer-Jadul-2067379807.jpg"),
+        nama_masakan: 'Kue Marmer',
+        jenis_masakan: 'Kue',
+        gambar_masakan: "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/17/Resep-Bolu-Marmer-Jadul-2067379807.jpg"),
     );
   }
 }
