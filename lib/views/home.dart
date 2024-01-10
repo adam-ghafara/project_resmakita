@@ -71,25 +71,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+          Row(
+            children: [
           SingleChildScrollView(
-            child: ListView.builder(itemCount: 10,
-            itemBuilder: (context, index) {
-              final recipes = RecipeData.fromJSON([index]);
-              return ResepCard(
+            child: ResepCard(
             nama_masakan: 'Kue Marmer',
             jenis_masakan: 'Kue',
-            gambar_masakan: "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/17/Resep-Bolu-Marmer-Jadul-2067379807.jpg");
-            },)
-            ),
-          ],
+            gambar_masakan: "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/17/Resep-Bolu-Marmer-Jadul-2067379807.jpg")
           ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
+            ],
+          ),
+        ],
+      ),
+                  floatingActionButton: FloatingActionButton(
+            onPressed: () {
             Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRecipePage()));
-          },
-          child: Icon(Icons.add),
+            },
+            child: Icon(Icons.add),
           backgroundColor: Colors.blueGrey[900],
-        ),
+                  ),
     );
   }
 }
@@ -109,3 +109,10 @@ class _HomePageState extends State<HomePage> {
       //   nama_masakan: 'Kue Marmer',
       //   jenis_masakan: 'Kue',
       //   gambar_masakan: "https://static.promediateknologi.id/crop/0x0:0x0/750x500/webp/photo/2023/03/17/Resep-Bolu-Marmer-Jadul-2067379807.jpg"),
+
+          //         floatingActionButton: FloatingActionButton(
+          //   onPressed: () {
+          //   Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRecipePage()));
+          //   },
+          //   child: Icon(Icons.add),
+          // backgroundColor: Colors.blueGrey[900],

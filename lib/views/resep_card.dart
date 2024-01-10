@@ -50,11 +50,12 @@ class ResepCard extends StatelessWidget {
               children: [
                   Text('Penulis: Ahmad Fauzi', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
             ],)),
-            Icon(Icons.favorite, color: Colors.red[400], size: 30)
+            Icon(Icons.favorite, color: Colors.red[400], size: 30),
           ],),
           ),
           alignment: Alignment.center,
-        )],),
+        )],
+        ),
       );
     }
 }
