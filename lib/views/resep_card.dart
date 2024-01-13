@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../connection/postgres.dart';
+import './recipepost/recipe_view.dart';
 
 class ResepCard extends StatelessWidget {
   final String nama_masakan;
@@ -12,8 +13,8 @@ class ResepCard extends StatelessWidget {
     Widget build(BuildContext context) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-        width: MediaQuery.of(context).size.width,
-        height: 250,
+        width: MediaQuery.of(context).size.width * 0.9,
+        height: 180,
         decoration: BoxDecoration(
           color: Colors.blueGrey[50],
           borderRadius: BorderRadius.circular(8),
@@ -50,7 +51,11 @@ class ResepCard extends StatelessWidget {
               children: [
                   Text('Penulis: Ahmad Fauzi', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Colors.white)),
             ],)),
-            Icon(Icons.favorite, color: Colors.red[400], size: 30),
+            GestureDetector(
+              onTap: () {
+              },
+              child: Icon(Icons.favorite, color: Colors.white, size: 30),
+            ),
           ],),
           ),
           alignment: Alignment.center,
@@ -59,3 +64,10 @@ class ResepCard extends StatelessWidget {
       );
     }
 }
+
+// ontap: () {},
+//           child: ResepCard(
+//             nama_masakan: 'Kue Marmer',
+//             jenis_masakan: 'Kue',
+//             gambar_masakan: 'https://cdn.sindonews.net/dyn/620/content/2019/06/12/185/1394947/resep-kue-marmer-untuk-lebaran-2019-berikut-cara-membuatnya-8Qm.jpg',
+//           ),

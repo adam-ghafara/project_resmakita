@@ -14,19 +14,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext contex) {
     return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.restaurant_menu),
-            SizedBox(width: 10),
-            Text('ResmaKita')
-          ],
-        ),
-      ),
       body: Column(
         children: [
-          Text('Selamat Datang di ResmaKita', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black)),
+          Text('Selamat Datang di ResmaKita', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.lightBlue[900])),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -82,14 +72,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ],
-      ),
-                  floatingActionButton: FloatingActionButton(
-            onPressed: () {
-            Navigator.push(context, new MaterialPageRoute(builder: (context) => new NewRecipePage()));
-            },
-            child: Icon(Icons.add),
-          backgroundColor: Colors.blueGrey[900],
-                  ),
+      )
     );
   }
 }
