@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:postgres/postgres.dart';
+import '../../connection/postgres.dart';
 
 class NewAccountPage extends StatefulWidget {
   const NewAccountPage({super.key});
@@ -85,12 +86,14 @@ class _NewAccountPageState extends State<NewAccountPage> {
                     alignment: Alignment.center,
                     child: ElevatedButton(
                   onPressed: () {
-                    PostgreSQLConnection connection =
-                        PostgreSQLConnection(" ", 5432, "  ",
-                            username: "  ", password: "  ");
-                    connection.open().then((value) {
-                      connection.query(
-                          "INSERT INTO users (fullname, username, password) VALUES ('${fullnameController.text}', '${usernameController.text}', '${passwordController.text}')");
+                    connector().then((conn) {
+                      conn.query(
+                          'INSERT INTO users (user_fullname, r_username, r_password) VALUES (@fullname, @username, @password)',
+                          substitutionValues: {
+                            'user_fullname': fullnameController.text,
+                            'r_username': usernameController.text,
+                            'r_password': passwordController.text
+                          });
                       Navigator.pop(context);
                     });
                   },

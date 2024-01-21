@@ -62,12 +62,34 @@ class _LoginPageState extends State<LoginPage> {
             Align(
               alignment: Alignment.center,
               child: ElevatedButton(onPressed: (
-
               ) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => MyApp()),
-              );
+                // Connecting to Database
+                connector().then((conn) {
+                  print('Connected to Database');
+                  // Login
+                  conn.query('SELECT * FROM users WHERE username = @username AND password = @password', substitutionValues: {
+                    'username': usernameController.text,
+                    'password': passwordController.text
+                  }).toList().then((value) {
+                    if (value.length > 0) {
+                      print('Login Success');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyApp()),
+                      );
+                    } else {
+                      print('Login Failed');
+                      PopupMenuButton(
+                        itemBuilder: (BuildContext bc) => [
+                          PopupMenuItem(child: Text("Username atau Password salah, Silahkan coba lagi."), value: "/login"),
+                        ],
+                        onSelected: (route) {
+                          Navigator.pushNamed(context, route);
+                        },
+                      );
+                    }
+                  });
+                });
             }, child: Text('Login', style: TextStyle(fontSize: 17),)),
             ),
             Align(

@@ -1,7 +1,10 @@
+import 'dart:io';
+
+import 'package:aplikasi_resep_masakan/views/recipepost/new_recipe.dart';
+
 import 'views/accounting/login.dart';
 import 'package:flutter/material.dart';
 import 'views/home.dart';
-import 'views/accounting/new_account.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,6 +29,7 @@ class DrawerBar extends StatefulWidget {
 }
 
 class _DrawerBarState extends State<DrawerBar> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +46,7 @@ class _DrawerBarState extends State<DrawerBar> {
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
+          children: [
             DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
@@ -52,6 +56,18 @@ class _DrawerBarState extends State<DrawerBar> {
             ListTile(
               leading: Icon(Icons.home),
               title: Text('Home'),
+              onTap:() => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.food_bank),
+              title: Text('Tambah Resep Masakan'),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NewRecipePage()),
+              ),
             ),
             ListTile(
               leading: Icon(Icons.favorite),
