@@ -16,6 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/home',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/home': (context) => MyApp(),
+        '/newrecipe': (context) => NewRecipePage(),
+      },
       title: 'ResmaKita',
       home: DrawerBar(),
     );
@@ -29,7 +35,6 @@ class DrawerBar extends StatefulWidget {
 }
 
 class _DrawerBarState extends State<DrawerBar> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,9 +117,9 @@ class _UserInformationState extends State<UserInformation> {
           ),
           SizedBox(height: 5),
           ElevatedButton(onPressed: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
+              '/login',
             );
           }, child: Text('Login')),
           ColoredBox(color: Colors.lightBlue),
