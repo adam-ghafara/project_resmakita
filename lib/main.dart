@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:aplikasi_resep_masakan/views/recipepost/new_recipe.dart';
 
 import 'views/accounting/login.dart';
@@ -16,12 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/home': (context) => MyApp(),
-        '/newrecipe': (context) => NewRecipePage(),
-      },
       title: 'ResmaKita',
       home: DrawerBar(),
     );
@@ -117,9 +109,9 @@ class _UserInformationState extends State<UserInformation> {
           ),
           SizedBox(height: 5),
           ElevatedButton(onPressed: () {
-            Navigator.pushNamed(
-              context,
-              '/login',
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginPage())
             );
           }, child: Text('Login')),
           ColoredBox(color: Colors.lightBlue),
