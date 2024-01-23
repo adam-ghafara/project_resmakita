@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 import 'recipepost/new_recipe.dart';
 import 'package:flutter/material.dart';
 import './recipepost/recipe_detail.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -19,27 +16,27 @@ class Page extends StatelessWidget {
       initialRoute: '/home',
       routes: {
         '/home': (context) => HomePage(),
-        '/detail?id_masakan=${id_masakan}': (context) => DetailScreen(id_masakan: id_masakan),
-        '/new': (context) => NewRecipePage(),
+        '/detail': (context) => DetailScreen(id_masakan: id_masakan),
+        '/new': (context) => NewRecipe(),
       },
       home: HomePage(),
     );
   }
 }
 
-class recipe {
+class reseps {
   final int id_masakan;
   final String nama_masakan;
   final String penulis_masakan;
 
-  recipe({
+  reseps({
     required this.id_masakan,
     required this.nama_masakan,
     required this.penulis_masakan,
   });
 
-  factory recipe.fromJSON(dynamic json) {
-    return recipe(
+  factory reseps.fromJSON(dynamic json) {
+    return reseps(
       id_masakan: json['id_masakan'],
       nama_masakan: json['nama_masakan'],
       penulis_masakan: json['penulis_masakan'],
@@ -48,23 +45,23 @@ class recipe {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<recipe> _recipes = [];
+  List<reseps> _recipes = [];
 
   Future<void> fetchData() async {
     final response =
-    await http.get(Uri.parse('http://localhost/resmakita/reseps'));
+    await http.get(Uri.parse('http://localhost/resmakita/reseps.php'));
     
     if (response.statusCode == 200) {
       setState(() {
         Iterable list = json.decode(response.body);
-        
+        _recipes = list.map((model) => reseps.fromJSON(model)).toList();
       });
     } 
   }
@@ -78,27 +75,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Resep Masakan'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => NewRecipePage()));
-            },
-            icon: Icon(Icons.add),
-          )
-        ],
-      ),
       body: ListView.builder(
         itemCount: _recipes.length,
         itemBuilder: (context, index) {
+          final resep = _recipes[index];
           return GestureDetector(
             onTap: () {
               Navigator.pushNamed(context, 
-              '/detail?id_masakan=${_recipes[index].id_masakan}',
+              '/detail?id_masakan=${resep.id_masakan}',
               );
             },
             child: Card(
@@ -119,26 +103,12 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(_recipes[index].nama_masakan,
+                      Text(resep.nama_masakan,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
                               color: Colors.blueAccent)),
-                      Text('Oleh : ${_recipes[index].penulis_masakan}'),
-                      ClipOval(
-                        child: Material(
-                          color: Colors.blue, // button color
-                          child: InkWell(
-                            splashColor: Colors.red, // inkwell color
-                            child: SizedBox(
-                                width: 30,
-                                height: 30,
-                                child: Icon(Icons.favorite)),
-                            onTap: () {
-                            },
-                          ),
-                        ),
-                      )
+                      Text('Oleh : ${resep.penulis_masakan}'),
                     ],
                   )
                 ],

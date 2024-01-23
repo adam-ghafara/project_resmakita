@@ -1,20 +1,15 @@
-import 'package:aplikasi_resep_masakan/views/recipepost/new_recipe.dart';
-
-import 'views/accounting/login.dart';
 import 'package:flutter/material.dart';
 import 'views/home.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ResmaKita',
       home: DrawerBar(),
     );
   }
@@ -58,14 +53,14 @@ class _DrawerBarState extends State<DrawerBar> {
                 MaterialPageRoute(builder: (context) => MyApp()),
               ),
             ),
-            ListTile(
-              leading: Icon(Icons.food_bank),
-              title: Text('Tambah Resep Masakan'),
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewRecipePage()),
-              ),
-            ),
+            // ListTile(
+            //   leading: Icon(Icons.food_bank),
+            //   title: Text('Tambah Resep Masakan'),
+            //   onTap: () => Navigator.push(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => NewRecipePage()),
+            //   ),
+            // ),
             ListTile(
               leading: Icon(Icons.favorite),
               title: Text('Favorit'),
@@ -108,15 +103,16 @@ class _UserInformationState extends State<UserInformation> {
                 'https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png'),
           ),
           SizedBox(height: 5),
-          ElevatedButton(onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage())
-            );
-          }, child: Text('Login')),
-          ColoredBox(color: Colors.lightBlue),
+        //   ElevatedButton(onPressed: () {
+        //     Navigator.push(
+        //         context,
+        //         MaterialPageRoute(builder: (context) => LoginPage())
+        //     );
+        //   }, child: Text('Login')),
+        //   ColoredBox(color: Colors.lightBlue),
+        // ],
         ],
-      ),
+    ),
     );
   }
 }

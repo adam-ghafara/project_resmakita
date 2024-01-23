@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:postgres/postgres.dart';
@@ -32,7 +31,7 @@ class _NewAccountPageState extends State<NewAccountPage> {
     final String password = passwordController.text;
 
     final Response response = await post(
-      Uri.parse('http://localhost/resmakita/users'),
+      Uri.parse('http://localhost/resmakita/users.php'),
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
       },

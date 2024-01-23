@@ -1,5 +1,5 @@
 CREATE TABLE recipetable (
-    id_masaakan INTEGER(15) PRIMARY KEY AUTO_INCREMENT,
+    id_masakan INTEGER(15) PRIMARY KEY AUTO_INCREMENT,
     recipe_user_id INTEGER(15) NOT NULL,
     nama_masakan TEXT NOT NULL,
     deskripsi_masakan TEXT NOT NULL,

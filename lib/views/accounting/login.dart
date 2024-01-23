@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     final String user_password = passwordController.text;
 
     final response = await http.post(
-    Uri.parse('http://localhost/resmakita/users'),
+    Uri.parse('http://localhost/resmakita/users.php'),
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
