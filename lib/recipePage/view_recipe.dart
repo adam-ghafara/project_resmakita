@@ -4,6 +4,8 @@ import 'dart:convert';
 import '../main.dart';
 import '../recipePage/page.dart';
 import '../recipePage/new_recipe.dart';
+import '../recipePage/edit_recipe.dart';
+import '../loginPage/login.dart';
 
 class recipePage extends StatelessWidget {
   final ResepMasakan resepMasakan;
@@ -44,22 +46,22 @@ class ResepMasakan {
   }
 }
 
-class DrawerBar extends StatefulWidget {
-  const DrawerBar({super.key});
+class DrawerViewRecipe extends StatefulWidget {
+  const DrawerViewRecipe({super.key});
 
   @override
-  _DrawerBarState createState() => _DrawerBarState();
+  _DrawerViewRecipeState createState() => _DrawerViewRecipeState();
 
 }
 
-class _DrawerBarState extends State<DrawerBar> {
+class _DrawerViewRecipeState extends State<DrawerViewRecipe> {
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('ResmaKita'),),
       drawer: Drawer(
-        child: 
+        child:
         ListView(
           children: <Widget>[
             DrawerHeader(
@@ -90,7 +92,17 @@ class _DrawerBarState extends State<DrawerBar> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewRecipe()),
+                  MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle_outlined),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
             ),
@@ -98,11 +110,12 @@ class _DrawerBarState extends State<DrawerBar> {
         ),
       ),
       body: const Center(
-        child: HomePage(),
+          child: HomePage()
       ),
     );
   }
 }
+
 
 class ViewRecipe extends StatefulWidget {
   const ViewRecipe({Key? key}) : super(key: key);
@@ -198,15 +211,23 @@ class _ViewRecipeState extends State<ViewRecipe> {
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => EditRecipe()),
-              // );
+            Container(
+              // put at left
+              alignment: Alignment.centerLeft,
+              child: ElevatedButton(onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DrawerEditRecipe()),
+                );
             },
             child: Text('Edit Resep Masakan'),
+            )
             ),
-            ElevatedButton(onPressed: () {
+            Container(
+              // put in right
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+              onPressed: () {
               // Show alert dialog
               showDialog(
                 context: context,
@@ -223,8 +244,10 @@ class _ViewRecipeState extends State<ViewRecipe> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          // Delete data from database
-                          Navigator.pop(context);
+                          // Delete recipe
+                          DeleteRecipe(id_masakan: 0).deleteRecipe();
+                          Navigator.push(context, 
+                          MaterialPageRoute(builder: (context) => MyApp()));
                         },
                         child: Text('Ya'),
                       ),
@@ -234,10 +257,47 @@ class _ViewRecipeState extends State<ViewRecipe> {
               );
             },
             child: Text('Hapus Resep Masakan'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+            ),
+            )
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class DeleteRecipe {
+  final int id_masakan;
+
+  DeleteRecipe({
+    required this.id_masakan,
+  });
+
+  factory DeleteRecipe.fromJson(Map<String, dynamic> json) {
+    return DeleteRecipe(
+      id_masakan: json['id_masakan'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    "id_masakan": id_masakan,
+  };
+
+  Future<DeleteRecipe> deleteRecipe() async {
+    final response = await http.delete(
+      Uri.parse('http://localhost/resmakita/delete.php'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(toJson()),
+    );
+    if (response.statusCode == 200) {
+      return DeleteRecipe.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to delete recipe.');
+    }
   }
 }

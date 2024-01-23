@@ -3,6 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import '../main.dart';
+import '../recipePage/page.dart';
+import '../loginPage/login.dart';
 
 class DrawerBarNewRecipe extends StatefulWidget {
   const DrawerBarNewRecipe({super.key});
@@ -14,53 +16,63 @@ class DrawerBarNewRecipe extends StatefulWidget {
 
 class _DrawerBarNewRecipeState extends State<DrawerBarNewRecipe> {
     @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('ResmaKita'),),
-      drawer: Drawer(
-        child: 
-        ListView(
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'ResmaKita',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('ResmaKita'),),
+        drawer: Drawer(
+          child:
+          ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                ),
+                child: Text(
+                  'ResmaKita',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyApp()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.add_circle_outline_rounded),
-              title: Text('Tambah Resep Masakan Baru'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => NewRecipe()),
-                );
-              },
-            ),
-          ],
+              ListTile(
+                leading: Icon(Icons.home),
+                title: Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyApp()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.add_circle_outline_rounded),
+                title: Text('Tambah Resep Masakan Baru'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.account_circle_outlined),
+                title: Text('Login'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      body: const Center(
-        child: NewRecipe(),
-      ),
-    );
-  }
+        body: const Center(
+            child: HomePage()
+        ),
+      );
+    }
 }
 
 class ResepMasakan {

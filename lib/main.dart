@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './recipePage/page.dart';
 import './recipePage/new_recipe.dart';
+import './loginPage/login.dart';
 
 void main() => runApp(MyApp());
 
@@ -67,11 +68,21 @@ class _DrawerBarState extends State<DrawerBar> {
                 );
               },
             ),
+            ListTile(
+              leading: Icon(Icons.account_circle_outlined),
+              title: Text('Login'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
+            ),
           ],
+            ),
         ),
-      ),
       body: const Center(
-        child: HomePage(),
+        child: HomePage()
       ),
     );
   }
