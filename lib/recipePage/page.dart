@@ -1,90 +1,77 @@
-import 'recipepost/new_recipe.dart';
 import 'package:flutter/material.dart';
-import './recipepost/recipe_detail.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import './view_recipe.dart';
 
-class Page extends StatelessWidget {
-  final int id_masakan;
-
-  const Page({required this.id_masakan});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => HomePage(),
-        '/detail': (context) => DetailScreen(id_masakan: id_masakan),
-        '/new': (context) => NewRecipe(),
-      },
-      home: HomePage(),
-    );
-  }
-}
-
-class reseps {
-  final int id_masakan;
+class ResepMasakan {
   final String nama_masakan;
   final String penulis_masakan;
+  final String deskripsi_masakan;
+  final String bahan_masakan;
+  final String cara_masakan;
 
-  reseps({
-    required this.id_masakan,
+  ResepMasakan({
     required this.nama_masakan,
     required this.penulis_masakan,
+    required this.deskripsi_masakan,
+    required this.bahan_masakan,
+    required this.cara_masakan,
   });
 
-  factory reseps.fromJSON(dynamic json) {
-    return reseps(
-      id_masakan: json['id_masakan'],
+  factory ResepMasakan.fromJson(Map<String, dynamic> json) {
+    return ResepMasakan(
       nama_masakan: json['nama_masakan'],
       penulis_masakan: json['penulis_masakan'],
+      deskripsi_masakan: json['deskripsi_masakan'],
+      bahan_masakan: json['bahan_masakan'],
+      cara_masakan: json['cara_masakan'],
     );
   }
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
+  // Navigation bar
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  List<reseps> _recipes = [];
+  List<ResepMasakan> resepMasakan = [];
 
-  Future<void> fetchData() async {
-    final response =
-    await http.get(Uri.parse('http://localhost/resmakita/reseps.php'));
-    
+  Future<void> getResepMasakan() async {
+    final response = await http.get(
+      Uri.parse('http://localhost/resmakita/reseps.php'),
+    );
     if (response.statusCode == 200) {
       setState(() {
-        Iterable list = json.decode(response.body);
-        _recipes = list.map((model) => reseps.fromJSON(model)).toList();
+        Iterable List = json.decode(response.body);
+        resepMasakan = List.map((model) => ResepMasakan.fromJson(model)).toList();
       });
-    } 
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    getResepMasakan();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: _recipes.length,
+        itemCount: resepMasakan.length,
         itemBuilder: (context, index) {
-          final resep = _recipes[index];
+          final resep = resepMasakan[index];
           return GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, 
-              '/detail?id_masakan=${resep.id_masakan}',
-              );
-            },
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ViewRecipe(),
+              ),
+            ),
             child: Card(
               child: Row(
                 children: [
