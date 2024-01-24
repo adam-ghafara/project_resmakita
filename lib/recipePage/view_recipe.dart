@@ -7,19 +7,6 @@ import '../recipePage/new_recipe.dart';
 import '../recipePage/edit_recipe.dart';
 import '../loginPage/login.dart';
 
-class recipePage extends StatelessWidget {
-  final ResepMasakan resepMasakan;
-
-  const recipePage({Key? key, required this.resepMasakan}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DrawerBar(),
-    );
-  }
-}
-
 class ResepMasakan {
   final String nama_masakan;
   final String penulis_masakan;
@@ -42,6 +29,18 @@ class ResepMasakan {
       deskripsi_masakan: json['deskripsi_masakan'],
       bahan_masakan: json['bahan_masakan'],
       cara_masakan: json['cara_masakan'],
+    );
+  }
+}
+
+class recipePage extends StatelessWidget {
+
+  const recipePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: DrawerViewRecipe(),
     );
   }
 }
@@ -110,7 +109,7 @@ class _DrawerViewRecipeState extends State<DrawerViewRecipe> {
         ),
       ),
       body: const Center(
-          child: HomePage()
+          child: ViewRecipe()
       ),
     );
   }
@@ -118,7 +117,7 @@ class _DrawerViewRecipeState extends State<DrawerViewRecipe> {
 
 
 class ViewRecipe extends StatefulWidget {
-  const ViewRecipe({Key? key}) : super(key: key);
+  const ViewRecipe({super.key});
 
   @override
   _ViewRecipeState createState() => _ViewRecipeState();
@@ -149,7 +148,7 @@ class _ViewRecipeState extends State<ViewRecipe> {
     Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail Resep'),
+        title: Text('${resepMasakan[0].nama_masakan}'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -171,17 +170,17 @@ class _ViewRecipeState extends State<ViewRecipe> {
             SizedBox(
               height: 16,
             ),
-            Text('',
+            Text('${resepMasakan[0].nama_masakan}',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
                   color: Colors.blueAccent),
             ),
-            Text('Dibuat Oleh: '),
+            Text('Dibuat Oleh: ${resepMasakan[0].penulis_masakan}'),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Deskripsi : \n',
+                'Deskripsi : \n ${resepMasakan[0].deskripsi_masakan}',
                 maxLines: 15,
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -192,7 +191,7 @@ class _ViewRecipeState extends State<ViewRecipe> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Bahan : \n',
+                'Bahan : \n ${resepMasakan[0].bahan_masakan}',
                 maxLines: 15,
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -203,7 +202,7 @@ class _ViewRecipeState extends State<ViewRecipe> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Cara Memasak : \n',
+                'Cara Memasak : \n ${resepMasakan[0].cara_masakan}',
                 maxLines: 15,
                 textAlign: TextAlign.left,
                 style: TextStyle(
@@ -288,7 +287,7 @@ class DeleteRecipe {
 
   Future<DeleteRecipe> deleteRecipe() async {
     final response = await http.delete(
-      Uri.parse('http://localhost/resmakita/delete.php'),
+      Uri.parse('http://localhost/resmakita/reseps.php'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

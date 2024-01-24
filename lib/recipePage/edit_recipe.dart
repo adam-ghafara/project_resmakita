@@ -1,3 +1,4 @@
+import 'package:aplikasi_resep_masakan/recipePage/new_recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -49,7 +50,7 @@ class _DrawerEditRecipeState extends State<DrawerEditRecipe> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewRecipe()),
+                  MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
                 );
               },
             ),
@@ -57,7 +58,7 @@ class _DrawerEditRecipeState extends State<DrawerEditRecipe> {
         ),
       ),
       body: const Center(
-        child: NewRecipe(),
+        child: EditRecipe(),
       ),
     );
   }
@@ -89,22 +90,22 @@ class ResepMasakan {
   }
 }
 
-class NewRecipe extends StatefulWidget {
-  const NewRecipe({Key? key}) : super(key: key);
+class EditRecipe extends StatefulWidget {
+  const EditRecipe({Key? key}) : super(key: key);
 
   // Navigation bar
   @override
-  _NewRecipeState createState() => _NewRecipeState();
+  _EditRecipeState createState() => _EditRecipeState();
 }
 
-class _NewRecipeState extends State<NewRecipe> {
+class _EditRecipeState extends State<EditRecipe> {
   final TextEditingController nama_masakan = TextEditingController();
   final TextEditingController penulis_masakan = TextEditingController();
   final TextEditingController deskripsi_masakan = TextEditingController();
   final TextEditingController bahan_masakan = TextEditingController();
   final TextEditingController cara_masakan = TextEditingController();
 
-  Future<void> CreateRecipe() async {
+  Future<void> EditRecipe() async {
 
   final response = await http.post(
     Uri.parse("http://localhost/resmakita/reseps.php"),
@@ -122,11 +123,11 @@ class _NewRecipeState extends State<NewRecipe> {
 
     if (response.statusCode == 200) {
       Fluttertoast.showToast(
-          msg: "Data berhasil ditambahkan");
+          msg: "Data berhasil Di edit");
           Navigator.pop(context, true);
     } else {
       Fluttertoast.showToast(
-          msg: "Data gagal ditambahkan");
+          msg: "Data gagal di edit");
     }
   }
 
@@ -137,7 +138,7 @@ class _NewRecipeState extends State<NewRecipe> {
       child: SingleChildScrollView(child: 
       Column(
         children: [
-          Text('Tambah Resep Masakan Baru', style: TextStyle(fontSize: 35.0)),
+          Text('Edit Resep Masakan', style: TextStyle(fontSize: 35.0)),
           const SizedBox(height: 20.0,),
           TextField(
             controller: nama_masakan,
@@ -181,9 +182,9 @@ class _NewRecipeState extends State<NewRecipe> {
           const SizedBox(height: 20.0,),
           ElevatedButton(
             onPressed: () {
-              CreateRecipe();
+              EditRecipe();
             },
-            child: const Text('Tambah Resep Masakan'),
+            child: const Text('Terapkan Pengeditan'),
           ),
         ],
       ),

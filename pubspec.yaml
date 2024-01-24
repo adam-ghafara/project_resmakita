@@ -35,8 +35,8 @@ dependencies:
   dio: ^4.0.0
   http: ^1.1.0
   html: ^0.15.4
-# database
-  postgres: ^2.6.3
+  flutter_html: ^2.1.1
+  passwordfield: ^0.2.0
 # Hashing
   password_dart: ^2.0.1
 

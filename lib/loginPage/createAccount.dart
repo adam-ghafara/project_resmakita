@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:postgres/postgres.dart';
 import 'login.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class NewAccount extends StatelessWidget {
   const NewAccount({super.key});
@@ -92,12 +92,9 @@ class _NewAccountPageState extends State<NewAccountPage> {
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.black)),
-              TextField(
+              PasswordField(
                   controller: passwordController,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                  ),
-                  style: TextStyle(fontSize: 14)),
+              ),
               SizedBox(height: 20),
               Column(
                 children: [

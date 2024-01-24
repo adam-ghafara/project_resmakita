@@ -6,6 +6,7 @@ import '../../main.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import './createAccount.dart';
+import 'package:passwordfield/passwordfield.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -107,12 +108,9 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                         color: Colors.black)),
-                TextField(
+                PasswordField(
                     controller: passwordController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontSize: 14)),
+                ),
                 SizedBox(height: 20),
                 Align(
                   alignment: Alignment.center,

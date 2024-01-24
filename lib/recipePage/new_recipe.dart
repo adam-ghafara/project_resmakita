@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import '../main.dart';
-import '../recipePage/page.dart';
 import '../loginPage/login.dart';
 
 class DrawerBarNewRecipe extends StatefulWidget {
@@ -11,7 +10,6 @@ class DrawerBarNewRecipe extends StatefulWidget {
 
   @override
   _DrawerBarNewRecipeState createState() => _DrawerBarNewRecipeState();
-
 }
 
 class _DrawerBarNewRecipeState extends State<DrawerBarNewRecipe> {
@@ -69,7 +67,7 @@ class _DrawerBarNewRecipeState extends State<DrawerBarNewRecipe> {
           ),
         ),
         body: const Center(
-            child: HomePage()
+            child: NewRecipe()
         ),
       );
     }
@@ -151,6 +149,7 @@ class _NewRecipeState extends State<NewRecipe> {
         children: [
           Text('Tambah Resep Masakan Baru', style: TextStyle(fontSize: 35.0)),
           const SizedBox(height: 20.0,),
+          Text('Nama Masakan', style: TextStyle(fontSize: 14.0), textAlign: TextAlign.left,),
           TextField(
             controller: nama_masakan,
             decoration: const InputDecoration(
@@ -159,6 +158,7 @@ class _NewRecipeState extends State<NewRecipe> {
             ),
           ),
           const SizedBox(height: 20.0,),
+          Text('Penulis Masakan', style: TextStyle(fontSize: 14.0), textAlign: TextAlign.left,),
           TextField(
             controller: penulis_masakan,
             decoration: const InputDecoration(
@@ -167,33 +167,77 @@ class _NewRecipeState extends State<NewRecipe> {
             ),
           ),
           const SizedBox(height: 20.0,),
+          Text('Deskripsi Masakan', style: TextStyle(fontSize: 14.0), textAlign: TextAlign.left,),
           TextFormField(
             controller: deskripsi_masakan,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Deskripsi Masakan',
             ),
+            // Resize Form height
+            maxLines: 5,
           ),
           const SizedBox(height: 20.0,),
+          Text('Masukkan Bahan-Bahan untuk Masakan ini', style: TextStyle(fontSize: 14.0), textAlign: TextAlign.left,),
           TextFormField(
             controller: bahan_masakan,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Bahan Masakan',
             ),
+            maxLines: 7,
           ),
           const SizedBox(height: 20.0,),
+          Text('Tunjukkan Cara Memasaknya', style: TextStyle(fontSize: 14.0), textAlign: TextAlign.left,),
           TextFormField(
             controller: cara_masakan,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Cara Masakan',
             ),
+            maxLines: 10,
           ),
           const SizedBox(height: 20.0,),
           ElevatedButton(
             onPressed: () {
-              CreateRecipe();
+              // check if the should be filled
+              if (nama_masakan.text.isEmpty ||
+                  penulis_masakan.text.isEmpty ||
+                  deskripsi_masakan.text.isEmpty ||
+                  bahan_masakan.text.isEmpty ||
+                  cara_masakan.text.isEmpty) {
+                Fluttertoast.showToast(
+                    msg: "Harap isi semua kolom!",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.redAccent,);
+              } else if (nama_masakan.text.isNotEmpty ||
+                  penulis_masakan.text.isNotEmpty ||
+                  deskripsi_masakan.text.isNotEmpty ||
+                  bahan_masakan.text.isNotEmpty ||
+                  cara_masakan.text.isNotEmpty) {
+                showDialog(context: context, builder:
+                    (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('Konfirmasi'),
+                    content: const Text('Apakah anda yakin ingin menambahkan resep masakan ini?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Tidak'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          CreateRecipe();
+                        },
+                        child: const Text('Ya'),
+                      ),
+                    ],
+                  );
+                });
+              }
             },
             child: const Text('Tambah Resep Masakan'),
           ),
