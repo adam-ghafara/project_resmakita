@@ -5,7 +5,6 @@ import '../main.dart';
 import '../recipePage/page.dart';
 import '../recipePage/new_recipe.dart';
 import '../recipePage/edit_recipe.dart';
-import '../loginPage/login.dart';
 
 class ResepMasakan {
   final String nama_masakan;
@@ -92,16 +91,6 @@ class _DrawerViewRecipeState extends State<DrawerViewRecipe> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle_outlined),
-              title: Text('Login'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
             ),

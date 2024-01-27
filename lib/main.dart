@@ -1,5 +1,5 @@
+import 'package:aplikasi_resep_masakan/recipePage/page.dart';
 import 'package:flutter/material.dart';
-import './recipePage/page.dart';
 import './recipePage/new_recipe.dart';
 import './loginPage/login.dart';
 
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: DrawerBar(),
+      home: Login(),
   );
   }
 }
@@ -65,16 +65,6 @@ class _DrawerBarState extends State<DrawerBar> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle_outlined),
-              title: Text('Login'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
                 );
               },
             ),

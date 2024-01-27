@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import '../../main.dart';
 import 'package:http/http.dart' as http;
-import 'package:fluttertoast/fluttertoast.dart';
 import './createAccount.dart';
 import 'package:passwordfield/passwordfield.dart';
 
@@ -13,12 +12,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/home': (context) => MyApp(),
-        '/newaccount': (context) => NewAccountPage(),
-      },
       home: Scaffold(
       appBar: AppBar(title: Text('Login ke Akunmu')),
         backgroundColor: Colors.blue,
@@ -58,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       print('Login Success');
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MyApp()),
+        MaterialPageRoute(builder: (context) => DrawerBar()),
       );
     } else {
       print('Login Failed');

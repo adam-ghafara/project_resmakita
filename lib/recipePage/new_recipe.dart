@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import '../main.dart';
-import '../loginPage/login.dart';
 
 class DrawerBarNewRecipe extends StatefulWidget {
   const DrawerBarNewRecipe({super.key});
@@ -50,16 +49,6 @@ class _DrawerBarNewRecipeState extends State<DrawerBarNewRecipe> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DrawerBarNewRecipe()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.account_circle_outlined),
-                title: Text('Login'),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
                   );
                 },
               ),
