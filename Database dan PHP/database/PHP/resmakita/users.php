@@ -52,34 +52,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $conn->query($sql);
     echo json_encode(array("message" => "Data User Berhasil Ditambahkan"));
 }
-
-// if ($_SERVER["REQUEST_METHOD"] === "GET") {
-//     // Object todos
-//     $sql = "SELECT * FROM recipetable";
-//     $result = $conn->query($sql);
-//     $product = array();
-
-//     if ($result->num_rows > 0) {
-//         while ($row = $result->fetch_assoc()) {
-//             array_push($product, $row);
-//         }
-// }
-
-//     echo json_encode($product);
-// } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
-//     $data = json_decode(file_get_contents("php://input"), true);
-
-//     $id_masakan = $data["id_masakan"];
-//     $user_fullname = $data["user_fullname"];
-//     $nama_masakan = $data["nama_masakan"];
-//     $deskripsi_masakan = $data["deskripsi_masakan"];
-//     $bahan_masakan = $data["bahan_masakan"];
-//     $cara_masakan = $data["cara_masakan"];
-
-//     $sql = "INSERT INTO recipetable (id_masakan, user_fullname, nama_masakan, deskripsi_masakan, bahan_masakan, cara_masakan) VALUES ('$id_masakan', '$user_fullname', '$nama_masakan', '$deskripsi_masakan', '$bahan_masakan', '$cara_masakan')";
-
-//     $conn->query($sql);
-//     echo json_encode(array("message" => "Data Mahasiswa Berhasil Ditambahkan"));
-// }
-// $conn->close();
 ?>
